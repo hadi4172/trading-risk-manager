@@ -1,0 +1,178 @@
+/* * {
+    border: 1px black dotted;
+} */
+
+body{
+    display:flex;
+    background-color: whitesmoke;
+}
+
+#right{
+    min-width: 225px;
+    max-width: 225px;
+}
+
+#left{
+    width: calc(100vw - 215px);
+    min-width: 160px;
+    border-right: rgb(130, 129, 129) 1px solid;
+    margin-right: 10px;
+}
+
+#description{
+    height: 92vh;
+}
+
+input{
+    width: 130px;
+    font-size: 11px;
+    border: none;
+    background: hsl(0 0% 93%);
+    border-radius: .25rem;
+    padding: .55rem;
+    text-transform: uppercase;
+    margin: 3px;
+    color: dimgrey;
+}
+
+::selection {
+    color: black;
+    background: rgb(187, 187, 187);
+  }
+
+::placeholder {
+    text-align: center;
+    font-size: 10px;
+    color: rgb(191,191,191);
+    text-transform: none;
+}
+
+.user-input-wrp {
+    position: relative;
+    color: rgb(191,191,191);
+}
+
+.user-input-wrp .floating-label {
+	position: absolute;
+    pointer-events: none;
+    font-size: 10px;
+	top: 10px;
+	left: 12px;
+    transition: 0.2s ease all;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.user-input-wrp input:focus ~ .floating-label,
+.user-input-wrp input:not(:focus):valid ~ .floating-label{
+	top: 2px;
+	left: 12px;
+	font-size: 9px;
+    opacity: 1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+#description{
+    font-size: 11px;
+    text-align:justify;
+}
+
+#description-title{
+    text-align: center;
+    font-weight: bold;
+}
+
+#symbol{
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+td{
+    max-width: 150px;
+    font-size: 13px;
+    line-height: 120%;
+}
+
+td[desc]{
+    width: 160px;
+}
+
+.numerical{
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 80%;
+}
+
+.info{
+    font-size: 11px;
+    margin-bottom: 8px;
+}
+
+.btn:hover{
+    color:rgb(155, 155, 155);
+}
+
+#icon-is-correct-or-no{
+    color:rgb(255, 117, 117);
+    margin-left: 5px;
+}
+
+.nodataavailable{
+    color: rgb(253, 194, 65) !important;
+    display:unset !important;
+}
+
+.not-conform{
+    color:rgb(255, 117, 117) !important;
+}
+
+.conform{
+    color: rgb(169, 209, 142) !important;
+}
+
+.nodata{
+    color: rgb(253, 194, 65) !important;
+}
+
+.highlight {
+    background-color: rgb(250, 106, 106);
+    /* color: black; */
+}
+
+.btn {
+    color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    padding: 3px;
+    margin: 9px 0 0 8px;
+    max-width: 130px;
+    text-decoration: none;
+    width: 130px;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 30px;
+    background: transparent;
+}
+
+.btn:hover {
+    background: rgba(192, 192, 192, 0.2);
+}

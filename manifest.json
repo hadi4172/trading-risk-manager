@@ -1,0 +1,23 @@
+{
+	"name": "Trading Risk Manager",
+	"manifest_version": 2,
+	"version": "0.0.1",
+	"description": "Helps the trader with his calculations before buying a security.",
+	"icons": {
+		"128": "assets/icon128.png",
+		"48": "assets/icon48.png",
+		"16": "assets/icon16.png"
+	},
+	"browser_action": {
+		"default_icon": "assets/icon16.png"
+	},
+	"background": {
+		"scripts": [
+			"background.js"
+		],
+		"persistent": false
+	},
+	"permissions": [
+		"storage"
+	]
+}

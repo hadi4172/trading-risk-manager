@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Trading Risk Manager</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="popup.css">
+    <link rel="stylesheet" type="text/css" href="darkmode.css">
+    <link rel="stylesheet" type="text/css" href="toggle switch/responsive-toggle-switch.css">
+    <script type="module" src="popup.js"></script>
+</head>
+
+<body darkmode>
+    <div id=left>
+
+        <div class="user-input-wrp">
+            <input id=input-price tabindex="0" darkmode type="number" step="any" class="inputText" required title="Security price"/>
+            <span class="floating-label">Security price</span>
+        </div>
+        <div class="user-input-wrp">
+            <input id=input-size tabindex="0" darkmode type="number" step="any" class="inputText" required title="Order size (currency)"/>
+            <span class="floating-label">Order size (currency)</span>
+        </div>
+        <div class="user-input-wrp">
+            <input id=input-fees tabindex="0" darkmode type="number" step="any"  class="inputText" required title="Brokerage fees (currency)"/>
+            <span class="floating-label">Brokerage fees (currency)</span>
+        </div>
+        <div class="user-input-wrp">
+            <input id=input-earnings tabindex="0" darkmode type="number" step="any" class="inputText" required title="Profit goal (currency)"/>
+            <span class="floating-label">Profit goal (currency)</span>
+        </div>
+        <div class="user-input-wrp">
+            <input id=input-maxloss tabindex="0" darkmode type="number" step="any" class="inputText" required title="Max loss/profit goal (%)"/>
+            <span class="floating-label">Max loss/profit goal (%)</span>
+        </div>
+            <a darkmode id="calculate-btn" class="btn"><span style="margin: 0 3px;">Calculate</span></a>
+    </div>
+
+    <div id=right>
+        <table>
+			<tr>
+				<td darkmode desc>Order in shares  :</td>
+				<td darkmode><span class=numerical id=sharesnum>-</span></td>
+			</tr>
+			<tr>
+				<td darkmode desc>Total profits sell price :</td>
+				<td darkmode><span class=numerical id=maxsellprice>-</span></td>
+            </tr>
+            <tr>
+				<td darkmode desc>Zero loss sell price :</td>
+				<td darkmode><span class=numerical id=zerosellprice>-</span></td>
+            </tr>
+            <tr>
+				<td darkmode desc>Max loss sell price  :</td>
+				<td darkmode><span class=numerical id=losssellprice>-</span></td>
+            </tr>
+            <tr>
+				<td darkmode desc>Total earnings profit (%) :</td>
+				<td darkmode><span class=numerical id=maxprofitpercentage>-</span></td>
+            </tr>
+            <tr>
+				<td darkmode desc>Max loss (currency) :</td>
+				<td darkmode><span class=numerical id=maxlossval>-</span></td>
+            </tr>
+            <tr>
+				<td darkmode desc>Gains by smallest price difference (currency) :</td>
+				<td darkmode><span class=numerical id=gainsstep style="font-size: 11px; line-height: 0;">-</span></td>
+            </tr>
+            <tr>
+				<td darkmode desc>(Max profit price - Max loss price) divided by 5 : </td>
+				<td darkmode><span class=numerical id=gapprofitloss>-</span></td>
+			</tr>
+        </table>
+        <div class="toggle">
+            <input type="radio" name="sizeBy" value="chan1" id="chan1" />
+            <label for="chan1">Channel 1</label>
+            <input type="radio" name="sizeBy" value="chan2" id="chan2" />
+            <label for="chan2">Channel 2</label>
+            <input type="radio" name="sizeBy" value="chan3" id="chan3" />
+            <label for="chan3">Channel 3</label>
+        </div>
+    </div>
+</body>
+
+</html>
