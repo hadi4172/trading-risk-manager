@@ -60,10 +60,10 @@ window.onload = () => {
         let decimalsOfPrice = countDecimals(domSecurityPrice.value);
         inputValuesPerChannel[currentChannel - 1] = [domSecurityPrice.value, domOrderSize.value, domBrokerageFees.value, domProfitGoal.value, domMaxLossPerProfit.value];
         let orderInShares = roundTo(parseFloat(domOrderSize.value) / parseFloat(domSecurityPrice.value), 0);
-        let totalProfitsSellPrice = roundTo((parseFloat(domOrderSize.value) + parseFloat(domProfitGoal.value) + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice);
+        let totalProfitsSellPrice = roundTo((parseFloat(domOrderSize.value) + parseFloat(domProfitGoal.value) + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice, true);
         let zeroLossSellPrice = roundTo((parseFloat(domOrderSize.value) + 0 + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice, true);
         let maxLossValue = roundTo(parseFloat(domProfitGoal.value) * (parseFloat(domMaxLossPerProfit.value) / 100));
-        let maxLossSellPrice = roundTo((parseFloat(domOrderSize.value) - maxLossValue + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice);
+        let maxLossSellPrice = roundTo((parseFloat(domOrderSize.value) - maxLossValue + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice, true);
         let totalProfitPercentage = roundTo((parseFloat(domProfitGoal.value) / parseFloat(domOrderSize.value)) * 100);
         let gainsStep = roundTo((1 / Math.pow(10, decimalsOfPrice)) * orderInShares, 3);
         let gapBetweenPriceProfitAndLoss = roundTo((totalProfitsSellPrice - maxLossSellPrice) / 5, decimalsOfPrice);
