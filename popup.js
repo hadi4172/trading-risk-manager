@@ -30,10 +30,10 @@ window.onload = () => {
             }
             if (typeof arg.currentChannel !== 'undefined') {
                 currentChannel = arg.currentChannel;
-                document.querySelector(`#chan${arg.currentChannel}`).setAttribute("checked","checked");
+                document.querySelector(`#chan${arg.currentChannel}`).setAttribute("checked", "checked");
                 changeCurrentChannel(arg.currentChannel);
             } else {
-                document.querySelector(`#chan1`).setAttribute("checked","checked");
+                document.querySelector(`#chan1`).setAttribute("checked", "checked");
             }
         });
     }
@@ -48,24 +48,28 @@ window.onload = () => {
 
     for (let input of document.querySelectorAll("input[type='number']")) {
         input.addEventListener('click', function () {
-            if (currentChannel===3) {
-                window.setTimeout(() => {
-                    input.select();
-                }, 0);
-            }
+            window.setTimeout(() => {
+                input.select();
+            }, 0);
         });
     }
 
     calculateBtn.addEventListener("click", () => {
         let decimalsOfPrice = countDecimals(domSecurityPrice.value);
+        
+        let orderSize = parseFloat(domOrderSize.value);
+        let securityPrice = parseFloat(domSecurityPrice.value);
+        let brokerageFees = parseFloat(domBrokerageFees.value);
+        let profitGoal = parseFloat(domProfitGoal.value);
+        
         inputValuesPerChannel[currentChannel - 1] = [domSecurityPrice.value, domOrderSize.value, domBrokerageFees.value, domProfitGoal.value, domMaxLossPerProfit.value];
-        let orderInShares = roundTo(parseFloat(domOrderSize.value) / parseFloat(domSecurityPrice.value), 0);
-        let totalProfitsSellPrice = roundTo((parseFloat(domOrderSize.value) + parseFloat(domProfitGoal.value) + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice, true);
-        let zeroLossSellPrice = roundTo((parseFloat(domOrderSize.value) + 0 + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice, true);
-        let maxLossValue = roundTo(parseFloat(domProfitGoal.value) * (parseFloat(domMaxLossPerProfit.value) / 100));
-        let maxLossSellPrice = roundTo((parseFloat(domOrderSize.value) - maxLossValue + parseFloat(domBrokerageFees.value)) / orderInShares, decimalsOfPrice, true);
-        let totalProfitPercentage = roundTo((parseFloat(domProfitGoal.value) / parseFloat(domOrderSize.value)) * 100);
-        let gainsStep = roundTo((1 / Math.pow(10, decimalsOfPrice)) * orderInShares, 3);
+        let orderInShares = roundTo(orderSize / securityPrice, 0);
+        let totalProfitsSellPrice = roundTo((orderSize + profitGoal + brokerageFees) / orderInShares, decimalsOfPrice, true);
+        let zeroLossSellPrice = roundTo((orderSize + 0 + brokerageFees) / orderInShares, decimalsOfPrice, true);
+        let maxLossSellPrice = roundTo((orderSize - profitGoal * (parseFloat(domMaxLossPerProfit.value) / 100) + brokerageFees) / orderInShares, decimalsOfPrice, true);
+        let maxLossValue = Math.abs(roundTo(orderInShares * (maxLossSellPrice - securityPrice) - brokerageFees));
+        let totalProfitPercentage = roundTo(((orderInShares * (totalProfitsSellPrice  - securityPrice) - brokerageFees) / orderSize) * 100);
+        let gainsStep = roundTo((1 / Math.pow(10, decimalsOfPrice)) * orderInShares, 2);
         let gapBetweenPriceProfitAndLoss = roundTo((totalProfitsSellPrice - maxLossSellPrice) / 5, decimalsOfPrice);
         outputValuesPerChannel[currentChannel - 1] = [
             orderInShares,
@@ -74,7 +78,7 @@ window.onload = () => {
             maxLossSellPrice.toFixed(decimalsOfPrice),
             totalProfitPercentage.toFixed(2),
             maxLossValue.toFixed(2),
-            gainsStep.toFixed(3)+` / ${(1 / Math.pow(10, decimalsOfPrice))}`,
+            gainsStep.toFixed(2) + ` / ${(1 / Math.pow(10, decimalsOfPrice))}`,
             gapBetweenPriceProfitAndLoss.toFixed(decimalsOfPrice)
         ];
         displayOutput();
@@ -82,7 +86,7 @@ window.onload = () => {
     });
 
     function changeCurrentChannel(destination) {
-        currentChannel=destination;
+        currentChannel = destination;
         saveValues();
         displayOutput();
         displayInput();
@@ -126,9 +130,7 @@ window.onload = () => {
     }
 
     function roundTo(num, decimals = 2, ceil = false) {
-        return !ceil ?
-            Math.round((num + Number.EPSILON) * Math.pow(10, decimals)) / Math.pow(10, decimals) :
-            Math.ceil((num + Number.EPSILON) * Math.pow(10, decimals)) / Math.pow(10, decimals);
+        return Math[ceil ? "ceil" : "round"]((num + Number.EPSILON) * Math.pow(10, decimals)) / Math.pow(10, decimals) 
     }
 
     function countDecimals(value) {
